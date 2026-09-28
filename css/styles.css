@@ -17,6 +17,61 @@
 
   --sky-top: #0b4f8a;
   --sky-bottom: #003366;
+
+  /* Theme-dependent tokens (Light theme is the default) */
+  --surface-2: #f3f6fa;
+  --hover: #e6edf5;
+  --link: var(--fau-blue);
+  --heading: var(--fau-blue);
+  --accent-text: #1f6fb8;
+  --track: #e3e9f0;
+  --header-bg: var(--fau-blue);
+  --footer-bg: var(--fau-blue-dark);
+  --input-bg: #ffffff;
+  --card-border: transparent;
+  --status-bg: #fff4f4;
+  --status-text: #7a0000;
+  --info-bg: #eef4fb;
+  --info-text: var(--fau-blue);
+  --welcome-bg: linear-gradient(90deg, #ffffff, #f4f7fb);
+  color-scheme: light;
+}
+
+/* White theme: crisp pure-white page with outlined cards */
+:root[data-theme="white"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --border: #dfe4ea;
+  --card-border: #dfe4ea;
+  --shadow: none;
+  --welcome-bg: #ffffff;
+}
+
+/* Dark theme */
+:root[data-theme="dark"] {
+  --bg: #060f1c;
+  --surface: #0e1d31;
+  --surface-2: #14273f;
+  --text: #e6edf6;
+  --muted: #9fb0c3;
+  --border: #22364f;
+  --card-border: #1b2d45;
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --hover: #1b3150;
+  --link: #8cc2ff;
+  --heading: #a9cdf5;
+  --accent-text: #7fbcff;
+  --track: #22364f;
+  --header-bg: #00264d;
+  --footer-bg: #001a33;
+  --input-bg: #14273f;
+  --status-bg: #3a0d12;
+  --status-text: #ffc9c9;
+  --info-bg: #102a47;
+  --info-text: #cfe3fa;
+  --welcome-bg: linear-gradient(90deg, #0e1d31, #122640);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -34,7 +89,7 @@ body {
   flex-direction: column;
 }
 
-a { color: var(--fau-blue); }
+a { color: var(--link); }
 
 .visually-hidden {
   position: absolute !important;
@@ -45,7 +100,7 @@ a { color: var(--fau-blue); }
 
 /* ---------- Header ---------- */
 .site-header {
-  background: var(--fau-blue);
+  background: var(--header-bg);
   border-bottom: 4px solid var(--fau-red);
   color: #fff;
   position: sticky;
@@ -73,11 +128,23 @@ a { color: var(--fau-blue); }
 }
 
 .brand-logo {
-  height: 44px;
-  width: auto;
-  background: #fff;
-  border-radius: 8px;
-  padding: 4px 8px;
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand-name small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffd6d6;
 }
 
 .brand-divider {
@@ -109,6 +176,7 @@ a { color: var(--fau-blue); }
   border-radius: 999px 0 0 999px;
   outline: none;
   color: var(--text);
+  background: var(--input-bg);
 }
 
 .search input:focus { border-color: var(--fau-red); }
@@ -167,7 +235,7 @@ a { color: var(--fau-blue); }
 
 .search-results button:hover,
 .search-results button:focus-visible {
-  background: #e6edf5;
+  background: var(--hover);
   outline: none;
 }
 
@@ -223,7 +291,44 @@ a { color: var(--fau-blue); }
   background: var(--fau-red);
 }
 
+.theme-picker {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.theme-picker svg {
+  position: absolute;
+  left: 11px;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.theme-picker select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 9px 14px 9px 36px;
+  cursor: pointer;
+}
+
+.theme-picker select:hover { border-color: #fff; }
+.theme-picker select option { color: #13233a; background: #fff; }
+
 button:focus-visible,
+select:focus-visible,
 a:focus-visible {
   outline: 3px solid #ffcc00;
   outline-offset: 2px;
@@ -244,6 +349,7 @@ a:focus-visible {
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
   padding: 20px;
   min-width: 0;
 }
@@ -253,7 +359,7 @@ a:focus-visible {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--fau-blue);
+  color: var(--heading);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -267,21 +373,55 @@ a:focus-visible {
   border-radius: 2px;
 }
 
+.welcome {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--welcome-bg);
+  border-left: 6px solid var(--fau-red);
+}
+
+.welcome-owl {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--fau-blue);
+  display: grid;
+  place-items: center;
+}
+
+.welcome-owl img { width: 40px; height: 40px; object-fit: contain; }
+
+.welcome h2 {
+  margin: 0;
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  font-weight: 800;
+  color: var(--heading);
+}
+
+.welcome p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-weight: 500;
+}
+
 .status:empty { display: none; }
 
 .status {
   padding: 12px 16px;
   border-radius: 12px;
-  background: #fff4f4;
+  background: var(--status-bg);
   border-left: 5px solid var(--fau-red);
-  color: #7a0000;
+  color: var(--status-text);
   font-weight: 500;
 }
 
 .status.info {
-  background: #eef4fb;
+  background: var(--info-bg);
   border-left-color: var(--fau-blue);
-  color: var(--fau-blue);
+  color: var(--info-text);
 }
 
 /* ---------- Hero ---------- */
@@ -295,6 +435,8 @@ a:focus-visible {
   overflow: hidden;
   transition: background 0.6s ease;
 }
+
+:root[data-theme="dark"] .hero { filter: saturate(0.9) brightness(0.88); }
 
 .hero::after {
   content: "";
@@ -422,7 +564,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
   text-align: center;
   padding: 12px 6px;
   border-radius: 12px;
-  background: #f3f6fa;
+  background: var(--surface-2);
   border: 1px solid var(--border);
 }
 
@@ -451,7 +593,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
 
 .hour-pop {
   font-size: 0.75rem;
-  color: #1f6fb8;
+  color: var(--accent-text);
   font-weight: 600;
   min-height: 1.1em;
 }
@@ -489,7 +631,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
 .day-pop {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #1f6fb8;
+  color: var(--accent-text);
 }
 
 .day-range {
@@ -506,7 +648,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
   position: relative;
   height: 8px;
   border-radius: 999px;
-  background: #e3e9f0;
+  background: var(--track);
 }
 
 .range-fill {
@@ -529,7 +671,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: var(--fau-blue-dark);
+  background: var(--footer-bg);
   color: rgba(255, 255, 255, 0.85);
   text-align: center;
   padding: 18px 16px;
@@ -560,6 +702,9 @@ body.loading .daily {
   .brand-logo { height: 38px; }
   .brand-title { font-size: 1.05rem; }
   .search { order: 3; flex-basis: 100%; }
+  .brand-name small { display: none; }
+  .theme-picker select { width: 42px; height: 42px; padding: 0; color: transparent; }
+  .theme-picker svg { left: 12px; }
   .header-actions { margin-left: auto; }
   .card { padding: 16px; }
   .now-icon svg { width: 76px; height: 76px; }
@@ -569,4 +714,8 @@ body.loading .daily {
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
+}
+
+:root[data-theme="dark"] .range-fill {
+  background: linear-gradient(90deg, #3d82cc, var(--fau-red));
 }

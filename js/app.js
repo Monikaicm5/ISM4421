@@ -10,6 +10,8 @@
   const FORECAST_URL = "https://api.open-meteo.com/v1/forecast";
   const GEOCODE_URL = "https://geocoding-api.open-meteo.com/v1/search";
   const STORAGE_KEY = "fau-weather:v1";
+  const USER_NAME = "Moniki";
+  const THEMES = ["system", "light", "white", "dark"];
 
   // FAU Boca Raton campus (777 Glades Rd)
   const DEFAULT_LOCATION = {
@@ -67,7 +69,7 @@
   /* ---------------- Persistence ---------------- */
 
   function loadState() {
-    const fallback = { location: DEFAULT_LOCATION, units: "imperial" };
+    const fallback = { location: DEFAULT_LOCATION, units: "imperial", theme: "system" };
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (!saved) return fallback;
@@ -76,6 +78,7 @@
       return {
         location: validLoc ? loc : DEFAULT_LOCATION,
         units: UNITS[saved.units] ? saved.units : "imperial",
+        theme: THEMES.includes(saved.theme) ? saved.theme : "system",
       };
     } catch {
       return fallback;
@@ -275,6 +278,7 @@
     $("d-sunrise").textContent = fmtClock(d.sunrise[0]);
     $("d-sunset").textContent = fmtClock(d.sunset[0]);
 
+    renderWelcome(c, d);
     renderHourly(data.hourly, c);
     renderDaily(d);
   }
@@ -336,6 +340,32 @@
       el.style.left = `${el.dataset.left}%`;
       el.style.width = `${el.dataset.width}%`;
     });
+  }
+
+  function greeting() {
+    const h = new Date().getHours(); // the viewer's own local time
+    if (h < 5) return "Burning the midnight oil";
+    if (h < 12) return "Good morning";
+    if (h < 17) return "Good afternoon";
+    return "Good evening";
+  }
+
+  function weatherTip(c, d) {
+    const hot = state.units === "imperial" ? 90 : 32;
+    const cold = state.units === "imperial" ? 55 : 13;
+    const [, type] = describe(c.weather_code);
+    if (type === "storm") return "Thunderstorms around. Stay indoors when you hear thunder.";
+    if (type === "rain" || type === "showers" || type === "drizzle") return "It's wet out there. Grab an umbrella on your way to class! ☔";
+    if (d.precipitation_probability_max[0] >= 50) return `${round(d.precipitation_probability_max[0])}% chance of rain today. Pack an umbrella just in case. ☔`;
+    if (c.apparent_temperature >= hot) return "It's a scorcher. Stay hydrated and find some shade. 🥤";
+    if (d.uv_index_max[0] >= 8) return "UV is high today. Don't forget the sunscreen! 🧴";
+    if (c.apparent_temperature <= cold) return "Chilly by Florida standards. Bring a hoodie! 🧥";
+    return "Looks like a great day to be an Owl. Go Owls! 🦉";
+  }
+
+  function renderWelcome(c, d) {
+    $("welcome-title").textContent = `${greeting()}, ${USER_NAME}! 🦉`;
+    $("welcome-tip").textContent = weatherTip(c, d);
   }
 
   function setStatus(message, kind = "error") {
@@ -467,6 +497,42 @@
     if (!$("search-form").contains(e.target)) closeResults();
   });
 
+  /* ---------------- Theme ---------------- */
+
+  const darkQuery = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+
+  function applyTheme() {
+    const resolved = state.theme === "system" ? (darkQuery && darkQuery.matches ? "dark" : "light") : state.theme;
+    document.documentElement.dataset.theme = resolved;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = resolved === "dark" ? "#00264d" : "#003366";
+    $("theme-select").value = state.theme;
+  }
+
+  $("theme-select").addEventListener("change", (e) => {
+    state.theme = THEMES.includes(e.target.value) ? e.target.value : "system";
+    saveState();
+    applyTheme();
+  });
+
+  // Follow the OS setting live while "System" is selected
+  if (darkQuery) {
+    darkQuery.addEventListener("change", () => { if (state.theme === "system") applyTheme(); });
+  }
+
+  applyTheme();
+
+  /* ---------------- Logo ---------------- */
+
+  // Official FAU owl head is loaded from fau.edu; fall back to a local owl if it can't load.
+  document.querySelectorAll("img.fau-owl").forEach((img) => {
+    const useFallback = () => {
+      if (img.dataset.fallback && !img.src.endsWith(img.dataset.fallback)) img.src = img.dataset.fallback;
+    };
+    img.addEventListener("error", useFallback, { once: true });
+    if (img.complete && img.naturalWidth === 0) useFallback();
+  });
+
   /* ---------------- Other controls ---------------- */
 
   document.querySelectorAll(".unit-toggle button").forEach((btn) => {
@@ -502,6 +568,8 @@
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
     );
   });
+
+  $("welcome-title").textContent = `${greeting()}, ${USER_NAME}! 🦉`;
 
   // Refresh every 15 minutes while the tab is open
   setInterval(() => { if (!document.hidden) load(); }, 15 * 60 * 1000);

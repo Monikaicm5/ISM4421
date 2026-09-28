@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Owl">
+  <!-- Offline fallback only; the app loads FAU's official owl-head logo from fau.edu. -->
+  <path d="M6 6 L16 14 Q24 11 32 14 L42 6 L40 26 Q40 44 24 45 Q8 44 8 26 Z" fill="#fff"/>
+  <circle cx="17" cy="25" r="7" fill="#003366"/>
+  <circle cx="31" cy="25" r="7" fill="#003366"/>
+  <circle cx="17" cy="25" r="3.2" fill="#CC0000"/>
+  <circle cx="31" cy="25" r="3.2" fill="#CC0000"/>
+  <path d="M21 33 L24 39 L27 33 Z" fill="#CC0000"/>
+</svg>

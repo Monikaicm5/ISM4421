@@ -4,6 +4,9 @@ A weather app with Florida Atlantic University (FAU) branding, built on the free
 
 ## Features
 
+- **Personal welcome:** a time-of-day greeting for Moniki, with a tip based on the weather (umbrella, sunscreen, hydration…)
+- **Four themes** in the header menu: **System** (follows your device's light/dark setting), **Light**, **White** and **Dark**. The app remembers your choice.
+- **Official FAU owl-head logo** in the header
 - **Current conditions:** temperature, feels-like, humidity, wind and gusts, UV index, pressure, sunrise and sunset
 - **Hourly forecast** for the next 24 hours, with the chance of rain
 - **7-day forecast** with a temperature-range bar for each day
@@ -21,7 +24,8 @@ A weather app with Florida Atlantic University (FAU) branding, built on the free
 index.html            Page markup
 css/styles.css        FAU-themed styles
 js/app.js             App logic (Open-Meteo forecast + geocoding)
-assets/fau-logo.svg   Header logo
+js/theme-init.js      Applies the saved theme before the page paints
+assets/fau-owl.svg    Fallback owl, used only if the official logo can't load
 assets/favicon.svg    Browser tab icon
 netlify.toml          Netlify config (publish dir + security headers)
 ```
@@ -59,9 +63,15 @@ netlify login
 netlify deploy --prod --dir .
 ```
 
-## Replacing the logo
+## The logo
 
-`assets/fau-logo.svg` is a **stand-in** owl-and-wordmark in FAU colors. To use the official FAU logo, download it from FAU's brand resources. Save it as `assets/fau-logo.svg` to replace the stand-in. If the file is a PNG, save it as `assets/fau-logo.png` and update the `<img src>` in `index.html`. The header sizes the logo automatically.
+The header and the welcome banner show FAU's official owl-head logo. The browser loads it from `https://www.fau.edu/images/homepage/owlhead-logo.png`, and `netlify.toml` allows that host in the Content-Security-Policy. If that image ever fails to load, the app switches to the local `assets/fau-owl.svg` automatically.
+
+To host the official logo yourself instead, save it as `assets/fau-owl.png`. Then point both `<img class="fau-owl">` tags in `index.html` at that file.
+
+## Personalizing
+
+To change the name in the welcome message, edit `USER_NAME` near the top of `js/app.js`.
 
 ## Changing the default location
 

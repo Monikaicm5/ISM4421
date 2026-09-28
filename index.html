@@ -11,14 +11,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Applies the saved theme before first paint (no flash of the wrong theme) -->
+  <script src="js/theme-init.js"></script>
 </head>
 <body data-sky="clear-day">
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="./" aria-label="FAU Weather home">
-        <img class="brand-logo" src="assets/fau-logo.svg" alt="Florida Atlantic University" width="120" height="48">
+        <img class="brand-logo fau-owl" src="https://www.fau.edu/images/homepage/owlhead-logo.png" data-fallback="assets/fau-owl.svg" alt="FAU Owl logo" width="48" height="48">
         <span class="brand-divider" aria-hidden="true"></span>
-        <span class="brand-title">Weather</span>
+        <span class="brand-name">
+          <span class="brand-title">FAU Weather</span>
+          <small>Florida Atlantic University</small>
+        </span>
       </a>
 
       <form class="search" id="search-form" role="search" autocomplete="off">
@@ -37,6 +42,16 @@
         <button type="button" id="home-btn" class="icon-btn" title="Back to FAU Boca Raton" aria-label="Back to FAU Boca Raton">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>
         </button>
+        <label class="theme-picker" title="Theme">
+          <span class="visually-hidden">Theme</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="#fff"/></svg>
+          <select id="theme-select">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="white">White</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
         <div class="unit-toggle" role="group" aria-label="Temperature units">
           <button type="button" data-units="imperial" aria-pressed="true">°F</button>
           <button type="button" data-units="metric" aria-pressed="false">°C</button>
@@ -46,6 +61,16 @@
   </header>
 
   <main class="container">
+    <section class="welcome card" aria-labelledby="welcome-title">
+      <div class="welcome-owl" aria-hidden="true">
+        <img class="fau-owl" src="https://www.fau.edu/images/homepage/owlhead-logo.png" data-fallback="assets/fau-owl.svg" alt="">
+      </div>
+      <div>
+        <h2 id="welcome-title">Welcome, Moniki! 🦉</h2>
+        <p id="welcome-tip">Here's your weather, straight from Owl country.</p>
+      </div>
+    </section>
+
     <div id="status" class="status" role="status" aria-live="polite"></div>
 
     <section class="hero card" aria-labelledby="location-name">
