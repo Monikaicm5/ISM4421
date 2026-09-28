@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAU Weather | Boca Raton</title>
+  <meta name="description" content="Current conditions, hourly and 7-day forecasts for Florida Atlantic University and anywhere else, powered by Open-Meteo.">
+  <meta name="theme-color" content="#003366">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-sky="clear-day">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="FAU Weather home">
+        <img class="brand-logo" src="assets/fau-logo.svg" alt="Florida Atlantic University" width="120" height="48">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-title">Weather</span>
+      </a>
+
+      <form class="search" id="search-form" role="search" autocomplete="off">
+        <label class="visually-hidden" for="search-input">Search for a city</label>
+        <input id="search-input" type="search" placeholder="Search a city…" aria-controls="search-results" aria-expanded="false">
+        <button type="submit" class="search-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <ul id="search-results" class="search-results" role="listbox" hidden></ul>
+      </form>
+
+      <div class="header-actions">
+        <button type="button" id="locate-btn" class="icon-btn" title="Use my location" aria-label="Use my location">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+        <button type="button" id="home-btn" class="icon-btn" title="Back to FAU Boca Raton" aria-label="Back to FAU Boca Raton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>
+        </button>
+        <div class="unit-toggle" role="group" aria-label="Temperature units">
+          <button type="button" data-units="imperial" aria-pressed="true">°F</button>
+          <button type="button" data-units="metric" aria-pressed="false">°C</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <section class="hero card" aria-labelledby="location-name">
+      <div class="hero-main">
+        <p class="eyebrow" id="location-detail">FAU Boca Raton Campus</p>
+        <h1 id="location-name">Boca Raton</h1>
+        <p class="location-region" id="location-region">Florida, United States</p>
+        <div class="now">
+          <div class="now-icon" id="now-icon" aria-hidden="true"></div>
+          <div>
+            <div class="now-temp"><span id="now-temp">--</span><span class="now-unit" id="now-unit">°F</span></div>
+            <p class="now-summary" id="now-summary">Loading…</p>
+          </div>
+        </div>
+        <p class="now-feels">Feels like <strong id="now-feels">--</strong> · High <strong id="today-high">--</strong> · Low <strong id="today-low">--</strong></p>
+        <p class="updated" id="updated"></p>
+      </div>
+
+      <dl class="details" id="details">
+        <div class="detail"><dt>Humidity</dt><dd id="d-humidity">--</dd></div>
+        <div class="detail"><dt>Wind</dt><dd id="d-wind">--</dd></div>
+        <div class="detail"><dt>Gusts</dt><dd id="d-gusts">--</dd></div>
+        <div class="detail"><dt>Rain chance</dt><dd id="d-precip-prob">--</dd></div>
+        <div class="detail"><dt>UV index</dt><dd id="d-uv">--</dd></div>
+        <div class="detail"><dt>Pressure</dt><dd id="d-pressure">--</dd></div>
+        <div class="detail"><dt>Sunrise</dt><dd id="d-sunrise">--</dd></div>
+        <div class="detail"><dt>Sunset</dt><dd id="d-sunset">--</dd></div>
+      </dl>
+    </section>
+
+    <section class="card" aria-labelledby="hourly-heading">
+      <h2 id="hourly-heading" class="section-title">Next 24 hours</h2>
+      <ol class="hourly" id="hourly"></ol>
+    </section>
+
+    <section class="card" aria-labelledby="daily-heading">
+      <h2 id="daily-heading" class="section-title">7-day forecast</h2>
+      <ol class="daily" id="daily"></ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Go Owls! 🦉 Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0).</p>
+    <p class="footnote">Not affiliated with or endorsed by Florida Atlantic University. For official alerts, see <a href="https://www.weather.gov/mfl/" target="_blank" rel="noopener">NWS Miami</a> and <a href="https://www.fau.edu/emergency/" target="_blank" rel="noopener">FAU Emergency</a>.</p>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
