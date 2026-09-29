@@ -1,39 +1,39 @@
-/* FAU brand palette */
+/* Brand palette: purple with FAU red accents */
 :root {
-  --fau-blue: #003366;
-  --fau-blue-dark: #00254a;
+  --brand-purple: #4b1d8f;
+  --brand-purple-dark: #34145f;
   --fau-red: #cc0000;
   --fau-red-dark: #a30000;
   --fau-gray: #8a8d8f;
   --fau-silver: #cccccc;
 
-  --bg: #eef2f7;
+  --bg: #f4f0fa;
   --surface: #ffffff;
-  --text: #13233a;
-  --muted: #5b6776;
-  --border: #d9e0e8;
+  --text: #231a3a;
+  --muted: #675e7a;
+  --border: #e2dcec;
   --radius: 16px;
-  --shadow: 0 6px 24px rgba(0, 51, 102, 0.10);
+  --shadow: 0 6px 24px rgba(75, 29, 143, 0.10);
 
-  --sky-top: #0b4f8a;
-  --sky-bottom: #003366;
+  --sky-top: #6d3bc4;
+  --sky-bottom: #4b1d8f;
 
   /* Theme-dependent tokens (Light theme is the default) */
-  --surface-2: #f3f6fa;
-  --hover: #e6edf5;
-  --link: var(--fau-blue);
-  --heading: var(--fau-blue);
-  --accent-text: #1f6fb8;
-  --track: #e3e9f0;
-  --header-bg: var(--fau-blue);
-  --footer-bg: var(--fau-blue-dark);
+  --surface-2: #f7f3fc;
+  --hover: #ede5f7;
+  --link: var(--brand-purple);
+  --heading: var(--brand-purple);
+  --accent-text: #7c3aed;
+  --track: #ebe4f4;
+  --header-bg: var(--brand-purple);
+  --footer-bg: var(--brand-purple-dark);
   --input-bg: #ffffff;
   --card-border: transparent;
   --status-bg: #fff4f4;
   --status-text: #7a0000;
-  --info-bg: #eef4fb;
-  --info-text: var(--fau-blue);
-  --welcome-bg: linear-gradient(90deg, #ffffff, #f4f7fb);
+  --info-bg: #f3edfb;
+  --info-text: var(--brand-purple);
+  --welcome-bg: linear-gradient(90deg, #ffffff, #f7f3fc);
   color-scheme: light;
 }
 
@@ -42,35 +42,35 @@
   --bg: #ffffff;
   --surface: #ffffff;
   --surface-2: #ffffff;
-  --border: #dfe4ea;
-  --card-border: #dfe4ea;
+  --border: #e6e0ef;
+  --card-border: #e6e0ef;
   --shadow: none;
   --welcome-bg: #ffffff;
 }
 
 /* Dark theme */
 :root[data-theme="dark"] {
-  --bg: #060f1c;
-  --surface: #0e1d31;
-  --surface-2: #14273f;
-  --text: #e6edf6;
-  --muted: #9fb0c3;
-  --border: #22364f;
-  --card-border: #1b2d45;
+  --bg: #0e0819;
+  --surface: #1a1030;
+  --surface-2: #231641;
+  --text: #eee8f7;
+  --muted: #b3a7c8;
+  --border: #36265a;
+  --card-border: #2a1c47;
   --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-  --hover: #1b3150;
-  --link: #8cc2ff;
-  --heading: #a9cdf5;
-  --accent-text: #7fbcff;
-  --track: #22364f;
-  --header-bg: #00264d;
-  --footer-bg: #001a33;
-  --input-bg: #14273f;
+  --hover: #2f1f52;
+  --link: #c4a5ff;
+  --heading: #d3bdfa;
+  --accent-text: #b794ff;
+  --track: #36265a;
+  --header-bg: #2a0f52;
+  --footer-bg: #1c0a38;
+  --input-bg: #231641;
   --status-bg: #3a0d12;
   --status-text: #ffc9c9;
-  --info-bg: #102a47;
-  --info-text: #cfe3fa;
-  --welcome-bg: linear-gradient(90deg, #0e1d31, #122640);
+  --info-bg: #2a1850;
+  --info-text: #e6d9fb;
+  --welcome-bg: linear-gradient(90deg, #1a1030, #221440);
   color-scheme: dark;
 }
 
@@ -325,7 +325,7 @@ a { color: var(--link); }
 }
 
 .theme-picker select:hover { border-color: #fff; }
-.theme-picker select option { color: #13233a; background: #fff; }
+.theme-picker select option { color: #231a3a; background: #fff; }
 
 button:focus-visible,
 select:focus-visible,
@@ -387,7 +387,7 @@ a:focus-visible {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--fau-blue);
+  background: var(--brand-purple);
   display: grid;
   place-items: center;
 }
@@ -420,7 +420,7 @@ a:focus-visible {
 
 .status.info {
   background: var(--info-bg);
-  border-left-color: var(--fau-blue);
+  border-left-color: var(--brand-purple);
   color: var(--info-text);
 }
 
@@ -446,13 +446,13 @@ a:focus-visible {
   background: var(--fau-red);
 }
 
-body[data-sky="clear-day"]    { --sky-top: #2f86d6; --sky-bottom: #003366; }
-body[data-sky="cloudy-day"]   { --sky-top: #5f7c99; --sky-bottom: #0d3a66; }
-body[data-sky="rain"]         { --sky-top: #3e5670; --sky-bottom: #0f2740; }
-body[data-sky="storm"]        { --sky-top: #36304f; --sky-bottom: #10162b; }
-body[data-sky="fog"]          { --sky-top: #8796a6; --sky-bottom: #2f4a66; }
-body[data-sky="snow"]         { --sky-top: #7fa6c9; --sky-bottom: #26507a; }
-body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
+body[data-sky="clear-day"]    { --sky-top: #8b5cf6; --sky-bottom: #4b1d8f; }
+body[data-sky="cloudy-day"]   { --sky-top: #7f6d9e; --sky-bottom: #3a1f66; }
+body[data-sky="rain"]         { --sky-top: #4f4270; --sky-bottom: #1f1040; }
+body[data-sky="storm"]        { --sky-top: #3a2a55; --sky-bottom: #120a24; }
+body[data-sky="fog"]          { --sky-top: #9a8fae; --sky-bottom: #43305f; }
+body[data-sky="snow"]         { --sky-top: #a99bd6; --sky-bottom: #4a3380; }
+body[data-sky="night"]        { --sky-top: #2a1650; --sky-bottom: #0a0418; }
 
 .eyebrow {
   margin: 0;
@@ -569,8 +569,8 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
 }
 
 .hour.is-now {
-  background: var(--fau-blue);
-  border-color: var(--fau-blue);
+  background: var(--brand-purple);
+  border-color: var(--brand-purple);
   color: #fff;
 }
 
@@ -598,7 +598,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
   min-height: 1.1em;
 }
 
-.hour.is-now .hour-pop { color: #bcdcff; }
+.hour.is-now .hour-pop { color: #dcc8ff; }
 
 /* ---------- Daily ---------- */
 .daily {
@@ -656,7 +656,7 @@ body[data-sky="night"]        { --sky-top: #0f2a4d; --sky-bottom: #020c1b; }
   top: 0;
   bottom: 0;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--fau-blue), var(--fau-red));
+  background: linear-gradient(90deg, var(--brand-purple), var(--fau-red));
 }
 
 /* ---------- Icons ---------- */
@@ -717,5 +717,5 @@ body.loading .daily {
 }
 
 :root[data-theme="dark"] .range-fill {
-  background: linear-gradient(90deg, #3d82cc, var(--fau-red));
+  background: linear-gradient(90deg, #9b6cf0, var(--fau-red));
 }

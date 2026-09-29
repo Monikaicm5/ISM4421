@@ -505,7 +505,7 @@
     const resolved = state.theme === "system" ? (darkQuery && darkQuery.matches ? "dark" : "light") : state.theme;
     document.documentElement.dataset.theme = resolved;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = resolved === "dark" ? "#00264d" : "#003366";
+    if (meta) meta.content = resolved === "dark" ? "#2a0f52" : "#4b1d8f";
     $("theme-select").value = state.theme;
   }
 

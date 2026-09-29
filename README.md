@@ -16,7 +16,7 @@ A weather app with Florida Atlantic University (FAU) branding, built on the free
 - The app remembers your last city and units in `localStorage`
 - A **home button** that goes back to FAU Boca Raton
 - Refreshes every 15 minutes while the tab is open
-- Works on phones and desktops, in FAU Blue (`#003366`) and FAU Red (`#CC0000`)
+- Works on phones and desktops, in purple (`#4B1D8F`) with FAU Red (`#CC0000`) accents
 
 ## Project structure
 
