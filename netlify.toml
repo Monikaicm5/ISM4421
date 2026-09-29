@@ -1,4 +1,6 @@
 # Netlify configuration — static site, no build step required.
+#   /        FAU Weather (Open-Meteo)
+#   /music/  AI Music Studio (Suno API, bring-your-own key)
 [build]
   publish = "."
   command = ""
@@ -10,7 +12,23 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+
+# Content-Security-Policy is set per app so each page only talks to its own API.
+[[headers]]
+  for = "/"
+  [headers.values]
     Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.fau.edu; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.fau.edu; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+
+# Suno audio/cover files are served from several CDNs, so media and images allow any https host.
+[[headers]]
+  for = "/music/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https: blob:; connect-src https://api.sunoapi.org; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
 
 [[headers]]
   for = "/assets/*"
