@@ -10,7 +10,8 @@
   const FORECAST_URL = "https://api.open-meteo.com/v1/forecast";
   const GEOCODE_URL = "https://geocoding-api.open-meteo.com/v1/search";
   const STORAGE_KEY = "fau-weather:v1";
-  const USER_NAME = "Moniki";
+  // Name comes from the signed-in user's Supabase user_metadata (see auth.js).
+  const userName = () => (window.fauUser && (window.fauUser.firstName || window.fauUser.name)) || "Owl";
   const THEMES = ["system", "light", "white", "dark"];
 
   // FAU Boca Raton campus (777 Glades Rd)
@@ -364,7 +365,7 @@
   }
 
   function renderWelcome(c, d) {
-    $("welcome-title").textContent = `${greeting()}, ${USER_NAME}! 🦉`;
+    $("welcome-title").textContent = `${greeting()}, ${userName()}! 🦉`;
     $("welcome-tip").textContent = weatherTip(c, d);
   }
 
@@ -569,7 +570,10 @@
     );
   });
 
-  $("welcome-title").textContent = `${greeting()}, ${USER_NAME}! 🦉`;
+  $("welcome-title").textContent = `${greeting()}, ${userName()}! 🦉`;
+  document.addEventListener("fau:user", () => {
+    $("welcome-title").textContent = `${greeting()}, ${userName()}! 🦉`;
+  });
 
   // Refresh every 15 minutes while the tab is open
   setInterval(() => { if (!document.hidden) load(); }, 15 * 60 * 1000);

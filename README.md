@@ -91,3 +91,15 @@ const DEFAULT_LOCATION = {
 
 - Weather data: [Open-Meteo.com](https://open-meteo.com/), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - This is a student project for ISM 4421. It is not affiliated with or endorsed by Florida Atlantic University.
+
+## Google sign-in (Supabase)
+
+The login screen uses Supabase Auth (`js/auth.js`) with the Google provider. After sign-in,
+the user's name and profile picture come from `user_metadata` (`full_name` / `avatar_url`).
+
+Setup checklist:
+- Google Cloud Console → OAuth client → Authorized redirect URI:
+  `https://oyffhrvjiyzkmkoahkvx.supabase.co/auth/v1/callback`
+- Supabase → Authentication → Providers → Google: enable it and paste the Client ID and Secret.
+- Supabase → Authentication → URL Configuration: set the Site URL to your Netlify URL and add it
+  (plus `http://localhost:*` for local testing) to the Redirect URLs.
